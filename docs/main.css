@@ -429,6 +429,89 @@ details a:hover { text-decoration: underline; }
   box-shadow: none;
 }
 
+/* ── Firmware steps ──────────────────────────────────── */
+.fw-step {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--color-row-sep);
+}
+
+.fw-step:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.fw-step-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--color-text);
+  margin-bottom: 8px;
+}
+
+.fw-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 6px;
+  border-radius: 99px;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.fw-step p {
+  margin: 6px 0 10px;
+  font-size: 13px;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+}
+
+.fw-step strong {
+  color: var(--color-text);
+}
+
+.fw-img {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  margin: 8px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+.fw-path {
+  display: inline-block;
+  font-size: 12px;
+  font-family: 'Consolas', 'Courier New', monospace;
+  background: #f0f0f0;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 6px 12px;
+  margin: 6px 0 10px;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.fw-step code {
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 12px;
+  background: #f0f0f0;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 2px 6px;
+  color: var(--color-text);
+}
+
 /* ── Notification ────────────────────────────────────── */
 .notification {
   position: fixed;

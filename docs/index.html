@@ -213,15 +213,45 @@
       <details>
         <summary>ファームウェアのアップデート</summary>
         <div class="detail-body">
-          <ol>
-            <li>
-              接続器のネジを外し、基板を取り出します。
-              <img src="img/nezi.jpg" class="no-style-img" alt="ネジの場所">
-            </li>
-            <li>
-              <a href="https://zenn.dev/kasashiki/articles/28d31814b8bf86#%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0%E3%82%A6%E3%82%A7%E3%82%A2%E3%81%AE%E6%9B%B8%E3%81%8D%E8%BE%BC%E3%81%BF" target="_blank" rel="noopener">こちらのサイト</a>に従い、ファームウェアをダウンロードして更新してください。
-            </li>
-          </ol>
+
+          <div class="fw-step">
+            <div class="fw-step-header">
+              <span class="fw-step-num">準備</span>
+              <span>接続器のネジを外し、基板を取り出す</span>
+            </div>
+            <img src="img/nezi.jpg" class="fw-img" alt="ネジの場所">
+          </div>
+
+          <div class="fw-step">
+            <div class="fw-step-header">
+              <span class="fw-step-num">1</span>
+              <span>DFU モードで PC に接続する</span>
+            </div>
+            <p>マイコンボードの <strong>BOOT ボタンを押しながら USB を差し</strong>、PC と接続します。エクスプローラーにストレージとして表示されたら成功です。</p>
+          </div>
+
+          <div class="fw-step">
+            <div class="fw-step-header">
+              <span class="fw-step-num">2</span>
+              <span>GitHub からファームウェアをダウンロードする</span>
+            </div>
+            <p>① 「<strong>Code</strong>」ボタンをクリック &nbsp;→&nbsp; ② 「<strong>Download ZIP</strong>」を選択してダウンロードします。</p>
+            <img src="img/fw_github.webp" class="fw-img" alt="GitHub Code → Download ZIP">
+            <p>ダウンロードした ZIP を展開してください。</p>
+          </div>
+
+          <div class="fw-step">
+            <div class="fw-step-header">
+              <span class="fw-step-num">3</span>
+              <span>.uf2 ファイルを書き込む</span>
+            </div>
+            <p>展開したフォルダの中から <code>HIDtaiko.uf2</code> を探し、DFU モードで認識されたストレージへ<strong>ドラッグ＆ドロップ</strong>します。ストレージの接続が自動的に切れたら書き込み完了です。</p>
+            <div class="fw-path">
+              HIDtaiko-master &nbsp;›&nbsp; HIDtaiko_connector_rp2040 &nbsp;›&nbsp; original_uf2
+            </div>
+            <img src="img/fw_path.png" class="fw-img" alt="uf2ファイルのパス">
+          </div>
+
         </div>
       </details>
 
