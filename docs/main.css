@@ -45,57 +45,37 @@ body {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
 }
 
-/* ── タイトル ─────────────────────────────────────────── */
+/* ── タイトル (Plan B: 赤グロー) ─────────────────────── */
 .site-header h1 {
   margin: 0;
   font-size: 1.55rem;
   color: var(--color-accent);
   letter-spacing: 0.1em;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  overflow: visible;
+  cursor: default;
+  text-shadow: 0 0 6px rgba(230, 60, 75, 0.25);
+  transition: text-shadow 0.35s ease, letter-spacing 0.35s ease;
 }
 
-.title-text {
-  display: inline-block;
-  animation: title-impact 1.3s cubic-bezier(.22,.61,.36,1) forwards;
+.site-header h1:hover {
+  letter-spacing: 0.16em;
+  animation: glow-pulse 1.4s ease-in-out infinite;
 }
 
-.title-drum {
-  display: inline-block;
-  font-size: 1.1em;
-  line-height: 1;
-}
-
-.drum-l { animation: drum-fly-l 1.3s cubic-bezier(.22,.61,.36,1) forwards; }
-.drum-r { animation: drum-fly-r 1.3s cubic-bezier(.22,.61,.36,1) forwards; }
-
-@keyframes drum-fly-l {
-  0%   { transform: translateX(-280px) rotate(-50deg) scale(1.8); opacity: 0; }
-  35%  { opacity: 1; }
-  50%  { transform: translateX(12px) rotate(8deg) scale(1.15); opacity: 1; }
-  65%  { transform: translateX(-4px) rotate(-3deg); opacity: 0.7; }
-  80%  { transform: translateX(0) scale(0.6); opacity: 0; }
-  100% { transform: translateX(0) scale(0); opacity: 0; }
-}
-
-@keyframes drum-fly-r {
-  0%   { transform: translateX(280px) rotate(50deg) scale(1.8); opacity: 0; }
-  35%  { opacity: 1; }
-  50%  { transform: translateX(-12px) rotate(-8deg) scale(1.15); opacity: 1; }
-  65%  { transform: translateX(4px) rotate(3deg); opacity: 0.7; }
-  80%  { transform: translateX(0) scale(0.6); opacity: 0; }
-  100% { transform: translateX(0) scale(0); opacity: 0; }
-}
-
-@keyframes title-impact {
-  0%   { transform: scale(1) skewX(0); }
-  50%  { transform: scale(1.14) skewX(-4deg); letter-spacing: 0.18em; }
-  62%  { transform: scale(0.93) skewX(2deg); }
-  74%  { transform: scale(1.05) skewX(-1deg); }
-  86%  { transform: scale(0.98); }
-  100% { transform: scale(1) skewX(0); }
+@keyframes glow-pulse {
+  0%, 100% {
+    text-shadow:
+      0 0 6px  rgba(230, 60, 75, 1),
+      0 0 16px rgba(230, 60, 75, 0.85),
+      0 0 32px rgba(230, 60, 75, 0.6),
+      0 0 60px rgba(230, 60, 75, 0.3);
+  }
+  50% {
+    text-shadow:
+      0 0 10px rgba(230, 60, 75, 1),
+      0 0 28px rgba(230, 60, 75, 0.95),
+      0 0 55px rgba(230, 60, 75, 0.75),
+      0 0 100px rgba(230, 60, 75, 0.4);
+  }
 }
 
 /* ── ステータスエリア ─────────────────────────────────── */
@@ -105,43 +85,39 @@ body {
   gap: 8px;
 }
 
-/* 太鼓断面リング型ドット */
+/* ステータスドット（塗りつぶし丸） */
 .status-dot {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  border: 3px solid #555;
-  background: rgba(255,255,255,0.05);
+  border: none;
+  background: #555;
   flex-shrink: 0;
-  transition: border-color 0.4s ease, background-color 0.4s ease, box-shadow 0.4s ease;
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 .status-dot.is-connecting {
-  border-color: #f39c12;
-  background: rgba(243,156,18,0.15);
+  background: #f39c12;
   animation: ring-blink 0.9s ease-in-out infinite;
 }
 
 .status-dot.is-connected {
-  border-color: #e63c4b;        /* ドン赤 */
-  background: rgba(230,60,75,0.25);
+  background: #2ecc71;
   animation: ring-don 2.2s ease-in-out infinite;
 }
 
 .status-dot.is-loading {
-  border-color: #3498db;        /* カツ青 */
-  background: rgba(52,152,219,0.2);
+  background: #3498db;
   animation: ring-katsu 0.45s ease-in-out infinite;
 }
 
 .status-dot.is-error {
-  border-color: #e74c3c;
-  background: rgba(231,76,60,0.2);
+  background: #e74c3c;
 }
 
 @keyframes ring-don {
-  0%,100% { box-shadow: 0 0 0 0 rgba(230,60,75,0.6); }
-  55%      { box-shadow: 0 0 0 8px rgba(230,60,75,0); }
+  0%,100% { box-shadow: 0 0 0 0 rgba(46,204,113,0.7); }
+  55%      { box-shadow: 0 0 0 8px rgba(46,204,113,0); }
 }
 
 @keyframes ring-katsu {
