@@ -163,32 +163,96 @@ body {
 }
 
 button {
-  border: none;
+  border: 2px solid transparent;
   border-radius: var(--radius-sm);
   padding: 9px 16px;
   font-size: 0.88rem;
   font-family: inherit;
   cursor: pointer;
-  background: #eaeaea;
   color: var(--color-text);
-  transition: transform 0.14s, box-shadow 0.14s, background-color 0.18s, color 0.18s;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.18s cubic-bezier(.34,1.56,.64,1),
+              box-shadow 0.18s ease,
+              background-color 0.2s ease,
+              color 0.2s ease,
+              border-color 0.2s ease;
 }
 
+/* デフォルト状態：ボタンごとに色tint */
+#connection    { background: rgba(46, 204, 113, 0.12); border-color: rgba(46, 204, 113, 0.4); }
+#disconnection { background: rgba(231,  76,  60, 0.10); border-color: rgba(231, 76,  60, 0.35); }
+#sendButton    { background: rgba(243, 156,  18, 0.12); border-color: rgba(243,156,  18, 0.4); }
+#requestButton { background: rgba(52,  152, 219, 0.12); border-color: rgba(52, 152, 219, 0.4); }
+#saveButton    { background: rgba(232, 128, 147, 0.12); border-color: rgba(232,128, 147, 0.4); }
+
+/* ホバー：フルカラー */
 button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
+  transform: translateY(-3px) scale(1.06);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
 }
-
 button:active {
-  transform: translateY(0);
-  box-shadow: none;
+  transform: translateY(0) scale(0.97);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  transition-duration: 0.08s;
 }
 
-#connection:hover    { background: var(--color-connect);    color: #fff; }
-#disconnection:hover { background: var(--color-disconnect); color: #fff; }
-#sendButton:hover    { background: var(--color-send);       color: #fff; }
-#requestButton:hover { background: var(--color-request);    color: #fff; }
-#saveButton:hover    { background: var(--color-save);       color: #fff; }
+#connection:hover    { background: var(--color-connect);    color: #fff; border-color: transparent; }
+#disconnection:hover { background: var(--color-disconnect); color: #fff; border-color: transparent; }
+#sendButton:hover    { background: var(--color-send);       color: #fff; border-color: transparent; }
+#requestButton:hover { background: var(--color-request);    color: #fff; border-color: transparent; }
+#saveButton:hover    { background: var(--color-save);       color: #fff; border-color: transparent; }
+
+/* ── ボタンアイコン ───────────────────────────────────── */
+.btn-icon {
+  font-size: 0.95em;
+  flex-shrink: 0;
+}
+
+/* ── アイコン個別アニメーション ─────────────────────── */
+#connection:hover    .btn-icon { animation: icon-wiggle 0.5s ease; }
+#disconnection:hover .btn-icon { animation: icon-shake  0.45s ease; }
+#sendButton:hover    .btn-icon { animation: icon-fly    0.55s ease forwards; }
+#requestButton:hover .btn-icon { animation: icon-spin   0.6s ease; }
+#saveButton:hover    .btn-icon { animation: icon-bounce 0.5s cubic-bezier(.36,.07,.19,.97); }
+
+@keyframes icon-wiggle {
+  0%,100% { transform: rotate(0deg); }
+  20%     { transform: rotate(-20deg); }
+  40%     { transform: rotate(20deg); }
+  60%     { transform: rotate(-12deg); }
+  80%     { transform: rotate(12deg); }
+}
+
+@keyframes icon-shake {
+  0%,100% { transform: translateX(0); }
+  20%     { transform: translateX(-5px); }
+  40%     { transform: translateX(5px); }
+  60%     { transform: translateX(-3px); }
+  80%     { transform: translateX(3px); }
+}
+
+@keyframes icon-fly {
+  0%   { transform: translate(0,0) rotate(0deg); opacity: 1; }
+  55%  { transform: translate(8px,-8px) rotate(20deg); opacity: 0; }
+  56%  { transform: translate(-4px,4px) rotate(0deg); opacity: 0; }
+  100% { transform: translate(0,0) rotate(0deg); opacity: 1; }
+}
+
+@keyframes icon-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes icon-bounce {
+  0%,100% { transform: translateY(0) scale(1); }
+  30%     { transform: translateY(-7px) scale(1.25); }
+  60%     { transform: translateY(2px) scale(0.9); }
+  80%     { transform: translateY(-3px) scale(1.05); }
+}
 
 /* ── Slider rows ─────────────────────────────────────── */
 .slider-row {
