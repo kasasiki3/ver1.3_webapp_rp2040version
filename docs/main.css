@@ -56,27 +56,31 @@ body {
   transition: text-shadow 0.35s ease, letter-spacing 0.35s ease;
 }
 
-.site-header h1:hover {
-  letter-spacing: 0.16em;
-  animation: glow-pulse 1.4s ease-in-out infinite;
+
+/* ── ヘッダーリンク ───────────────────────────────────── */
+.header-links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
-@keyframes glow-pulse {
-  0%, 100% {
-    text-shadow:
-      0 0 6px  rgba(230, 60, 75, 1),
-      0 0 16px rgba(230, 60, 75, 0.85),
-      0 0 32px rgba(230, 60, 75, 0.6),
-      0 0 60px rgba(230, 60, 75, 0.3);
-  }
-  50% {
-    text-shadow:
-      0 0 10px rgba(230, 60, 75, 1),
-      0 0 28px rgba(230, 60, 75, 0.95),
-      0 0 55px rgba(230, 60, 75, 0.75),
-      0 0 100px rgba(230, 60, 75, 0.4);
-  }
+.header-link {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 1.25rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s, transform 0.2s;
 }
+
+.header-link:hover {
+  color: #ffffff;
+  transform: scale(1.2);
+}
+
+.header-link--yt:hover { color: #ff4444; }
+.header-link--x:hover { color: #ffffff; }
+.header-link--zenn:hover { color: #3ea8ff; }
 
 /* ── ステータスエリア ─────────────────────────────────── */
 .header-status {
