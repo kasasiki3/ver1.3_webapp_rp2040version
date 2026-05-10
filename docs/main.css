@@ -64,6 +64,36 @@ body {
   border-radius: 50%;
   background: #555;
   flex-shrink: 0;
+  transition: background-color 0.4s ease;
+}
+
+.status-dot.is-connecting {
+  background: #f39c12;
+  animation: dot-blink 0.9s ease-in-out infinite;
+}
+
+.status-dot.is-connected {
+  background: #2ecc71;
+  animation: dot-pulse 2.4s ease-in-out infinite;
+}
+
+.status-dot.is-loading {
+  background: #f39c12;
+  animation: dot-blink 0.45s ease-in-out infinite;
+}
+
+.status-dot.is-error {
+  background: #e74c3c;
+}
+
+@keyframes dot-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
+  60%       { box-shadow: 0 0 0 7px rgba(46, 204, 113, 0); }
+}
+
+@keyframes dot-blink {
+  0%, 100% { opacity: 1;    transform: scale(1);   }
+  50%       { opacity: 0.25; transform: scale(0.75); }
 }
 
 .situation {

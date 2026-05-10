@@ -16,6 +16,11 @@ const situation_alert = document.getElementById("situation");
 let reader; // readerが必要な場合に備えて
 situation_alert.textContent = "接続してください"
 
+const status_dot = document.getElementById("status-dot");
+function setDot(state) {
+  status_dot.className = "status-dot" + (state ? " is-" + state : "");
+}
+
 // シリアルポートの接続処理
 BUTTON_CLICK_EVENT.addEventListener("click", async () => {
   try {
@@ -27,6 +32,9 @@ BUTTON_CLICK_EVENT.addEventListener("click", async () => {
       await port.close(); // ポートを閉じる
     }
 
+    setDot("connecting");
+    situation_alert.textContent = "ポートを選択中..."
+
     // 新しいポートのリクエスト
     port = await navigator.serial.requestPort();
     await port.open({ baudRate: 115200 });
@@ -35,6 +43,8 @@ BUTTON_CLICK_EVENT.addEventListener("click", async () => {
     writer = port.writable.getWriter();
     reader = port.readable.getReader();
 
+    setDot("connected");
+    situation_alert.textContent = "接続しました"
     console.log("Port connected successfully!");
 
     // 初期メッセージを送信
@@ -42,6 +52,8 @@ BUTTON_CLICK_EVENT.addEventListener("click", async () => {
     await writer.write(data);
     console.log("Data sent: Hello, Serial!");
   } catch (error) {
+    setDot("error");
+    situation_alert.textContent = "接続に失敗しました"
     console.error("Error:", error);
   }
 });
@@ -57,6 +69,7 @@ BUTTON_CLICK_EVENT_DISC.addEventListener("click", async () => {
   if (writer) writer.releaseLock(); // writerのロックを解放
   if (reader) reader.releaseLock(); // readerのロックを解放
   if (port) await port.close();
+  setDot(null);
   situation_alert.textContent = "切断しました"
 });
 
@@ -65,6 +78,7 @@ BUTTON_CLICK_EVENT_send.addEventListener("click", async () => {
   try {
     // "1002"の送信
     await writer.write(new TextEncoder().encode("1002\n"));
+    setDot("loading");
     situation_alert.textContent = "感度送信中..."
     for (let i = 0; i < 9; i++){//
       await new Promise(resolve => setTimeout(resolve, 100)); // 10ms待機
@@ -72,18 +86,21 @@ BUTTON_CLICK_EVENT_send.addEventListener("click", async () => {
       const data2 =  new TextEncoder().encode(data)
       await writer.write(data2); // UTF-8エンコードして送信
     }
-    //通知する
+    setDot("connected");
     situation_alert.textContent = "感度を送信しました"
   } catch (error) {
+    setDot("error");
     console.error("Error in send:", error);
   }
 });
 
-// データ要求処理 
+// データ要求処理
 BUTTON_CLICK_EVENT_request.addEventListener("click", async () => {
   try {
     // "1000"を送信して感度データを要求
     await writer.write(new TextEncoder().encode("1000\n"));
+    setDot("loading");
+    situation_alert.textContent = "感度を受信中..."
 
     for (let i = 0; i <= 8; i++) {
       let isMatched = false;
@@ -115,8 +132,10 @@ BUTTON_CLICK_EVENT_request.addEventListener("click", async () => {
         }
       }
     }
+    setDot("connected");
     situation_alert.textContent = "感度を受け取りました"
   } catch (error) {
+    setDot("error");
     console.error("Error in request:", error);
   }
 });
@@ -124,8 +143,8 @@ BUTTON_CLICK_EVENT_request.addEventListener("click", async () => {
 BUTTON_CLICK_EVENT_save.addEventListener("click", async () => {
     await writer.write(new TextEncoder().encode("1001\n"));
     console.log("1001_saved");
-   situation_alert.textContent = "感度を保存しました"
-
+    setDot("connected");
+    situation_alert.textContent = "感度を保存しました"
 });
 /*
 BUTTON_CLICK_EVENT_read.addEventListener("click", async () => {
