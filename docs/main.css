@@ -353,6 +353,7 @@ button:active {
   border-radius: 6px;
   border: 1px solid var(--color-border);
   display: block;
+  transform: scaleX(-1);
 }
 
 .pad-name {
@@ -540,6 +541,7 @@ details summary:hover { background: #efefef; }
   border-radius: 5px;
   border: 1px solid var(--color-border);
   display: block;
+  transform: scaleX(-1);
 }
 
 .drum-icon-item span {
