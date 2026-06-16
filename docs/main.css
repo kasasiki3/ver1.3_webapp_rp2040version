@@ -57,6 +57,117 @@ body {
 }
 
 
+/* ── i18n ────────────────────────────────────────────── */
+.i18n-en { display: none; }
+body.is-en .i18n-ja { display: none; }
+body.is-en .i18n-en { display: revert; }
+
+/* ── iOS-style toggle switch ─────────────────────────── */
+.ios-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  user-select: none;
+}
+.ios-switch input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.ios-track {
+  position: relative;
+  width: 44px;
+  height: 26px;
+  border-radius: 13px;
+  background: rgba(255,255,255,0.18);
+  transition: background 0.25s;
+  flex-shrink: 0;
+}
+.ios-track::after {
+  content: '';
+  position: absolute;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  top: 2px; left: 2px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  transition: transform 0.22s cubic-bezier(.34,1.56,.64,1);
+}
+.ios-switch input:checked ~ .ios-track { background: #38bdf8; }
+.ios-switch input:checked ~ .ios-track::after { transform: translateX(18px); }
+#langToggle ~ .ios-track { background: var(--color-accent); }
+#langToggle:checked ~ .ios-track { background: #38bdf8; }
+.ios-sw-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.6);
+}
+
+/* Light variant – on white card backgrounds */
+.ios-switch--light .ios-track { background: #d1d1d6; }
+.ios-switch--light input:checked ~ .ios-track { background: #34c759; }
+.ios-switch--light .ios-sw-label {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+}
+
+/* Mode toggle row between sensitivity and delay cards */
+.mode-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 2px 4px;
+}
+
+/* Hide advanced cards by default */
+.advanced-card { display: none; }
+.advanced-card.is-visible { display: block; }
+
+.beginner-explain { display: block; }
+.advanced-explain { display: none; }
+
+.delay-toggle-item { justify-content: space-between; }
+.delay-toggle-lbl { font-size: 0.85rem; font-weight: 600; color: var(--color-text); }
+.delay-toggle-sub { display: block; font-size: 0.72rem; color: var(--color-text-muted); margin-top: 1px; }
+
+/* ── ヘッダー左 ──────────────────────────────────────── */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* ── バージョンナビ ───────────────────────────────────── */
+.version-nav {
+  display: flex;
+  gap: 4px;
+}
+
+.version-link {
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 99px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: color 0.2s, background 0.2s, border-color 0.2s;
+}
+
+.version-link:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.version-link--active {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+  border-color: transparent;
+}
+
 /* ── ヘッダーリンク ───────────────────────────────────── */
 .header-links {
   display: flex;
@@ -214,6 +325,9 @@ body {
 }
 
 .card-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -224,11 +338,32 @@ body {
   padding: 9px 18px;
 }
 
+.keymap-title {
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.14s;
+}
+.keymap-title:hover {
+  background: #efefef;
+}
+.keymap-chevron {
+  font-size: 0.78rem;
+  color: var(--color-accent);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+.keymap-title.is-collapsed .keymap-chevron {
+  transform: rotate(-180deg);
+}
+
 /* ── Button group ────────────────────────────────────── */
 .button-group {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 8px;
+}
+.button-group--five {
+  grid-template-columns: repeat(5, 1fr);
 }
 
 button {
@@ -258,7 +393,7 @@ button {
 #disconnection { background: rgba(231,  76,  60, 0.10); border-color: rgba(231, 76,  60, 0.35); }
 #sendButton    { background: rgba(243, 156,  18, 0.12); border-color: rgba(243,156,  18, 0.4); }
 #requestButton { background: rgba(52,  152, 219, 0.12); border-color: rgba(52, 152, 219, 0.4); }
-#saveButton    { background: rgba(232, 128, 147, 0.12); border-color: rgba(232,128, 147, 0.4); }
+#saveButton    { background: rgba(232, 128, 147, 0.12); border-color: rgba(232, 128, 147, 0.4); }
 
 /* ホバー：フルカラー */
 button:hover {
@@ -275,7 +410,7 @@ button:active {
 #disconnection:hover { background: var(--color-disconnect); color: #fff; border-color: transparent; }
 #sendButton:hover    { background: var(--color-send);       color: #fff; border-color: transparent; }
 #requestButton:hover { background: var(--color-request);    color: #fff; border-color: transparent; }
-#saveButton:hover    { background: var(--color-save);       color: #fff; border-color: transparent; }
+#saveButton:hover    { background: var(--color-save);        color: #fff; border-color: transparent; }
 
 /* ── ボタンアイコン ───────────────────────────────────── */
 .btn-icon {
@@ -288,7 +423,6 @@ button:active {
 #disconnection:hover .btn-icon { animation: icon-shake  0.45s ease; }
 #sendButton:hover    .btn-icon { animation: icon-fly    0.55s ease forwards; }
 #requestButton:hover .btn-icon { animation: icon-spin   0.6s ease; }
-#saveButton:hover    .btn-icon { animation: icon-bounce 0.5s cubic-bezier(.36,.07,.19,.97); }
 
 @keyframes icon-wiggle {
   0%,100% { transform: rotate(0deg); }
@@ -489,6 +623,15 @@ details summary:hover { background: #efefef; }
   margin: 0 0 10px;
 }
 
+.detail-body ul {
+  margin: 6px 0 4px;
+  padding-left: 1.4em;
+}
+
+.detail-body ul li {
+  margin: 4px 0;
+}
+
 .detail-body strong { color: var(--color-text); }
 
 /* Explanation sections (inside details) */
@@ -624,6 +767,22 @@ details a:hover { text-decoration: underline; }
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
 }
 
+.fw-release-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #238636;
+  color: #fff !important;
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  margin: 4px 0 8px;
+  transition: background 0.15s;
+}
+.fw-release-link:hover {
+  background: #2ea043;
+}
+
 .fw-path {
   display: inline-block;
   font-size: 12px;
@@ -669,6 +828,166 @@ details a:hover { text-decoration: underline; }
 .notification.show {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* ── Key layout ─────────────────────────────────────── */
+.keymap-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 10px 18px;
+  border-bottom: 1px solid var(--color-row-sep);
+}
+
+.keymap-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 18px;
+  border-bottom: 1px solid var(--color-row-sep);
+}
+
+.keymap-row:last-child {
+  border-bottom: none;
+}
+
+select {
+  flex: 1;
+  padding: 6px 10px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 0.88rem;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+select:focus {
+  border-color: var(--color-accent);
+}
+
+#keyMapSendButton    { background: rgba(243, 156,  18, 0.12); border-color: rgba(243,156,  18, 0.4); }
+#keyMapRequestButton { background: rgba(52,  152, 219, 0.12); border-color: rgba(52, 152, 219, 0.4); }
+#keyMapSendButton:hover    { background: var(--color-send);    color: #fff; border-color: transparent; }
+#keyMapRequestButton:hover { background: var(--color-request); color: #fff; border-color: transparent; }
+
+/* ── V1.2 update banner ──────────────────────────────── */
+.v12-banner {
+  background: linear-gradient(135deg, rgba(230, 60, 75, 0.10) 0%, rgba(230, 60, 75, 0.04) 100%);
+  border-top: 3px solid var(--color-accent);
+  border-bottom: 1px solid rgba(230, 60, 75, 0.2);
+  padding: 18px 20px;
+}
+
+.v12-banner-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+}
+
+.v12-banner-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.v12-banner-title i {
+  font-size: 1.05rem;
+}
+
+.v12-banner-list {
+  flex: 1;
+  min-width: 240px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+}
+
+.v12-banner-list li {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  padding-left: 1em;
+  position: relative;
+}
+
+.v12-banner-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+  font-size: 0.75rem;
+}
+
+.v12-banner-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.v12-banner-btn:hover {
+  opacity: 0.85;
+  transform: translateX(3px);
+}
+
+/* ── Wiring table ────────────────────────────────────── */
+.wiring-warning {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+  background: #fffbe6;
+  border-left: 3px solid #f0ad00;
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  font-size: 0.82rem;
+  color: #5a4800;
+  margin-bottom: 10px;
+}
+.wiring-warning-icon { flex-shrink: 0; }
+
+.wiring-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+.wiring-table th,
+.wiring-table td {
+  border: 1px solid var(--color-border);
+  padding: 5px 10px;
+  text-align: center;
+}
+.wiring-table thead th {
+  background: var(--color-card-head);
+  font-weight: 600;
+  color: var(--color-text);
+}
+.wiring-table tbody tr:nth-child(even) td {
+  background: var(--color-row-sep);
+}
+.wiring-table td:first-child {
+  font-weight: 700;
+  color: var(--color-text-muted);
 }
 
 /* ── Responsive ──────────────────────────────────────── */
